@@ -1,0 +1,333 @@
+version: "2.0"
+stories:
+- story: first greet mood good, nofb
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: nofb
+  - action: utter_onboarding
+  - intent: mood_good
+  - action: utter_good_fb
+  - action: utter_know_trs
+  - checkpoint: knowstrs
+
+- story: first greet mood bad, nofb
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: nofb
+  - action: utter_onboarding
+  - intent: mood_bad
+  - action: utter_bad_fb
+  - action: utter_know_trs
+  - checkpoint: knowstrs
+
+- story: first greet mood good, process
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: process
+  - action: utter_onboarding
+  - intent: mood_good
+  - action: utter_good_fb
+  - action: utter_know_trs
+  - checkpoint: knowstrs
+
+- story: first greet mood bad, process
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: process
+  - action: utter_onboarding
+  - intent: mood_bad
+  - action: utter_bad_fb
+  - action: utter_know_trs
+  - checkpoint: knowstrs
+
+- story: first greet mood good, content
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: content
+  - action: utter_onboarding
+  - intent: mood_good
+  - action: utter_good_fb
+  - action: utter_know_trs
+  - checkpoint: knowstrs
+
+- story: first greet mood bad, content
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: content
+  - action: utter_onboarding
+  - intent: mood_bad
+  - action: utter_bad_fb
+  - action: utter_know_trs
+  - checkpoint: knowstrs
+
+- story: second greet mood good, nofb
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: nofb
+  - action: utter_welcomeback
+  - intent: mood_good
+  - action: utter_good_fb2
+  - action: utter_ask_start2
+
+- story: second greet mood bad, nofb
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: nofb
+  - action: utter_welcomeback
+  - intent: mood_bad
+  - action: utter_bad_fb2
+  - action: utter_ask_start2
+
+- story: second greet mood good, process
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: process
+  - action: utter_welcomeback
+  - intent: mood_good
+  - action: utter_good_fb2
+  - action: utter_ask_start2
+
+- story: second greet mood bad, process
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: process
+  - action: utter_welcomeback
+  - intent: mood_bad
+  - action: utter_bad_fb2
+  - action: utter_ask_start2
+
+- story: second greet mood good, content
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: content
+  - action: utter_welcomeback
+  - intent: mood_good
+  - action: utter_good_fb2
+  - action: utter_ask_start2
+
+- story: second greet mood bad, content
+  steps:
+  - intent: greet
+  - action: caction_setsession
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: content
+  - action: utter_welcomeback
+  - intent: mood_bad
+  - action: utter_bad_fb2
+  - action: utter_ask_start2
+
+- story: skip intro into thought records
+  steps:
+  - checkpoint: knowstrs
+  - action: utter_completed_trs
+  - intent: affirm
+  - action: utter_informed
+  - action: utter_task
+  - action: utter_ask_start
+
+- story: dig deeper for intro thought records
+  steps:
+  - checkpoint: knowstrs
+  - action: utter_completed_trs
+  - intent: deny
+  - action: utter_uninformed
+  - action: utter_task
+  - action: utter_ask_start
+
+- story: don't move to task
+  steps:
+  - intent: unclear
+  - action: utter_contact_researchers
+
+- story: contact researcher
+  steps:
+  - intent: researcher
+  - action: utter_research_bye
+
+- story: show example tr with dat
+  steps:
+  - intent: exampletr
+  - action: caction_showexampletr
+  - action: utter_contact_researchers2
+
+- story: give feedback and end tr
+  steps:
+  - intent: wait
+  - action: caction_prepare_feedback
+  - action: caction_give_feedback
+  - slot_was_set:
+    - feedback_given: true
+  - action: caction_savetodb
+  - slot_was_set:
+    - dbsave: true
+  - slot_was_set:
+    - demotype: null
+  - slot_was_set:
+    - feedback_given: false
+  - action: caction_endtr
+  - slot_was_set:
+    - emotype_internal: null
+  - slot_was_set:
+    - end_tr
+  - action: utter_all_feedback
+
+# - story: start thought record
+#   steps:
+#   - intent: starttr
+#   - action: caction_choosescenario
+#   - action: caction_increaseTRcounter
+#   - slot_was_set:
+#     - tr_counter
+#   - action: thoughtrecordcore
+#   - active_loop: thoughtrecordcore
+
+# - story: give feedback
+#   steps:
+#   - intent: seefeedback
+#   - action: caction_give_feedback
+#   - slot_was_set:
+#     - feedback_given: true
+#   - action: caction_savetodb
+#   - slot_was_set:
+#     - dbsave: true
+#   - action: utter_schemadef_q
+
+# - story: give feedback, save to db and ask if explanation needed
+#   steps:
+#   - intent: seefeedback
+#   - action: caction_give_feedback
+#   - slot_was_set:
+#     - feedback_given: true
+#   - action: caction_savetodb
+#   - slot_was_set:
+#     - dbsave: true
+#   - slot_was_set:
+#     - demotype: null
+#   - slot_was_set:
+#     - feedback_given: false
+#   - action: caction_endtr
+
+- story: don't start thought record
+  steps:
+  - intent: restarttr
+  - action: utter_schemadef_q2
+
+- story: explain schema after first thought record session1
+  steps:
+  - intent: expl
+  - slot_was_set:
+    - explain
+  - action: caction_explainschema
+  - slot_was_set:
+    - explain: null
+  - slot_was_set:
+    - transition: session1tr1
+  - action: utter_ask_start_tr
+
+- story: explain schema after first thought record session1 explain to none
+  steps:
+  - intent: expl
+  - slot_was_set:
+    - explain
+  - action: caction_explainschema
+  - slot_was_set:
+    - explain: null
+  - slot_was_set:
+    - transition: session1tr1none
+  - action: utter_ask_start_tr_nocontent
+
+- story: explain schema after second thought record session1
+  steps:
+  - intent: expl
+  - slot_was_set:
+    - explain
+  - action: caction_explainschema
+  - slot_was_set:
+    - explain: null
+  - slot_was_set:
+    - transition: session1tr2
+  - action: caction_savesessionend
+  - action: utter_end_session1
+
+- story: explain schema after second thought record session1 explain to none
+  steps:
+  - intent: expl
+  - slot_was_set:
+    - explain
+  - action: caction_explainschema
+  - slot_was_set:
+    - explain: null
+  - slot_was_set:
+    - transition: session1tr2none
+  - action: caction_savesessionend
+  - action: utter_end_session1_nocontent
+
+- story: explain schema after any thought record session2
+  steps:
+  - intent: expl
+  - slot_was_set:
+    - explain
+  - action: caction_explainschema
+  - slot_was_set:
+    - explain: null
+  - slot_was_set:
+    - transition: session2
+  - action: utter_ask_startnext
+
+- story: explain schema after any thought record session2 explain to none
+  steps:
+  - intent: expl
+  - slot_was_set:
+    - explain
+  - action: caction_explainschema
+  - slot_was_set:
+    - explain: null
+  - slot_was_set:
+    - transition: session2none
+  - action: utter_ask_startnext_nocontent

@@ -1,0 +1,701 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- endall0:
+    use_entities: true
+- endall1:
+    use_entities: true
+- endall2:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- mood_good:
+    use_entities: true
+- mood_bad:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- more_know:
+    use_entities: true
+- to_task:
+    use_entities: true
+- ic:
+    use_entities: true
+- info:
+    use_entities: true
+- starttr:
+    use_entities: true
+- restarttr:
+    use_entities: true
+- downward_arrow:
+    use_entities: true
+- keep_going:
+    use_entities: true
+- expl:
+    use_entities: true
+- researcher:
+    use_entities: true
+- startcomprehensionqs:
+    use_entities: true
+- exampletr:
+    use_entities: true
+- seefeedback:
+    use_entities: true
+- thanks:
+    use_entities: true
+- wait:
+    use_entities: true
+- unclear:
+    use_entities: true
+entities:
+- name
+- moreknowledge
+- totask
+- infoneeded
+- start_tr
+- instructions_clear
+- emotype_internal
+- continue
+- explain
+slots:
+  participantID:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  session1:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  condition:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: content
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - nofb
+    - process
+    - content
+  instructions_clear:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  infoneeded:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - theory
+    - therapy
+    - tr
+    - at
+    - study
+    - task
+  moreknowledge:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - situation
+    - emotion
+    - at
+    - behavior
+    - example
+    - none
+  totask:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  scen1_interpersonal:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  has_completed_trs:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  knows_about_cog_model:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  q11:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - q11a1
+    - q11a2
+    - q11a3
+  q12:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - q12a1
+    - q12a2
+    - q12a3
+  q13:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - q13a1
+    - q13a2
+    - q13a3
+  s1qs_correct:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  s2qs_correct:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  start_tr:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  asituation:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  bemotion:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  cemointensity:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+    max_value: 100.0
+    min_value: 0.0
+  demotype:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - happy
+    - sad
+    - angry
+    - anxious
+  emotype_internal:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - happy
+    - sadang
+    - anxious
+  eautomaticthought:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  start_dat:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: false
+    auto_fill: true
+    influence_conversation: true
+  previous_thought:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  anxstep:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  sadangstep:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  thoughts:
+    type: rasa.shared.core.slots.ListSlot
+    initial_value: []
+    auto_fill: true
+    influence_conversation: false
+  continue:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  behavior:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  posterior:
+    type: rasa.shared.core.slots.ListSlot
+    initial_value: []
+    auto_fill: true
+    influence_conversation: false
+  pimage_link:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  cimage_link:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  last_schema:
+    type: rasa.shared.core.slots.ListSlot
+    initial_value: []
+    auto_fill: true
+    influence_conversation: false
+  feedback_given:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  explain:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - attachment
+    - competence
+    - global
+    - health
+    - power
+    - meta
+    - others
+    - hope
+    - self
+    - none
+  tr_counter:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: 0
+    auto_fill: true
+    influence_conversation: false
+    max_value: 100.0
+    min_value: 0.0
+  step_counter:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: 0
+    auto_fill: true
+    influence_conversation: false
+    max_value: 100.0
+    min_value: 0.0
+  scen1:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+    max_value: 10.0
+    min_value: 0.0
+  scen2:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+    max_value: 10.0
+    min_value: 0.0
+  dbsave:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  step_history:
+    type: rasa.shared.core.slots.ListSlot
+    initial_value: []
+    auto_fill: true
+    influence_conversation: false
+  schema_history:
+    type: rasa.shared.core.slots.ListSlot
+    initial_value: []
+    auto_fill: true
+    influence_conversation: false
+  end_tr:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - ncontentfbohappynotransition
+    - ncontentfbohappytransition
+    - contentfb
+  transition:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - session1tr1
+    - session1tr1none
+    - session1tr2
+    - session1tr2none
+    - session2
+    - session2none
+  submittr:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - longfeedback
+    - shortfeedback
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+
+responses:
+  utter_default:
+  - text: Hm, something went wrong. Please get in touch with the researcher (f.v.burger@tudelft.nl) and close this conversation window.
+  utter_firstgreet:
+  - text: Hello!
+  utter_onboarding:
+  - buttons:
+    - payload: /mood_good
+      title: doing great!
+    - payload: /mood_bad
+      title: hmm... I've had better days.
+    text: |
+      Welcome! Cool that you're here. I'm Luca. I'm a chatbot designed to help you regularly complete thought records. I'm still new to the job, so it's important that you realize that you should not interpret anything I say as a diagnosis. Nonetheless, I hope I can be useful to you. Enough about me, how are you doing?
+  utter_welcomeback:
+  - buttons:
+    - payload: /mood_good
+      title: I'm good!
+    - payload: /mood_bad
+      title: Not so good today.
+    text: Welcome to the second session! How are you today?
+  utter_good_fb:
+  - text: Nice!
+  utter_good_fb2:
+  - text: I'm glad to hear that. In today's session, you will be asked to do at least one thought record but unlike in the first session, there will not be any scenarios given. Instead, you should pick a recent situation from your own life that caused you to feel a strong, negative emotion. After the first thought record, you may do as many additional ones as you would like. To give you some room to do more thought records if you would like, you will be reimbursed for 20 minutes for both the task and the short questionnaire that follows. The questionnaire should take at most 5 minutes.
+  utter_bad_fb:
+  - text: That's too bad.
+  utter_bad_fb2:
+  - text: I'm sorry to hear that. Maybe you can use the story of what made you feel bad in your thought record later. In today's session, you will be asked to do at least one thought record but unlike in the first session, there will not be any scenarios given. Instead, you should pick a recent situation from your own life that caused you to feel a strong, negative emotion. After the first thought record, you may do as many additional ones as you would like. To give you some room to do more thought records if you would like, you will be reimbursed for 20 minutes for both the task and the short questionnaire that follows. The questionnaire should take at most 5 minutes.
+  utter_know_trs:
+  - text: |
+      Alright, let's get started. Your task will be to complete thought records with my help. Thought records are a means to better understand why you respond the way you do to negative events. They do this by uncovering thinking patterns. If you do thought records regularly, you might come to see that the same types of situations make you feel bad and that this is because you hold certain beliefs about yourself, the world, or the future.
+  utter_completed_trs:
+  - buttons:
+    - payload: /affirm
+      title: yes, I have
+    - payload: /deny
+      title: nope, never
+    text: |
+      Have you ever completed thought records before?
+  utter_informed:
+  - text: |
+      Wow, ok, then you're not starting from scratch. See today's session then as a way of jogging your memory.
+  utter_uninformed:
+  - text: |
+      No worries. That's exactly what this practice session is for.
+  utter_automatic_thoughts:
+  - text: |
+      Automatic thoughts are verbal statements or mental images that pop up in our head in response to an event. This happens automatically and without conscious effort! Automatic thoughts are neither questions nor interjections, but the implications behind them. For example, if you are asked to give a presentation with only ten minutes to prepare and your first thought is 'Uh!' (interjection), the actual automatic thought might be something along the lines of 'I do not feel competent.' Similarly, it is not the thought in the form of a question that elicits emotions but rather the implicit answer we have to the question. For example, if you do not succeed at something and your first thought is 'Why can I never reach my goals?', it is probably the implicit answer of 'I am a failure' that causes sadness or disappointment. Please keep in mind that automatic thoughts are neither interjections nor questions but statements in sentence form when you are asked to state your automatic thoughts later, since the downward arrow technique might otherwise not work.
+  utter_dat:
+  - text: |
+      The main idea behind doing thought records regularly is to learn to recognize thought patterns. According to cognitive theory, the automatic thoughts are triggered by deep-rooted personal beliefs (core beliefs) that we hold about ourselves, the world, or the future. Such a belief may be 'I am unlovable.' The downward arrow technique is designed to help us drill down to the core belief starting from the automatic thought. It consists of repeatedly asking the same question again, kind of like children always asking 'why?', until we reach a point where we start to repeat ourselves or feel like our answers are becoming ridiculous.
+  utter_task:
+  - text: |
+      In today's session, we will do two thought records based on scenarios (I will give you a situation and you have to 
+      imagine yourself in the situation). In the second session, you will be asked to choose situations from your own life. 
+      A couple of important general pointers to keep in mind: 
+      1. try to be brief in your answers (keep them to one or two sentences), 
+      2. there are no right or wrong answers as everyone is unique. However, the researchers will later check if your answers were coherent and retain the right to exclude you if not,
+      3. I'm only a computer algorithm. You should not interpret anything I say as a diagnosis!
+  utter_contact_researchers:
+  - buttons:
+    - payload: /researcher
+      title: I'll get in touch with the researcher
+    - payload: /startcomprehensionqs
+      title: I'm ready for the comprehension questions!
+    - payload: /exampletr
+      title: Let me see an example thought record.
+    text: I'm sorry. If something important is unclear, I'd advise you to contact the main researcher (f.v.burger@tudelft.nl), otherwise, I'd suggest we try the learning-by-doing approach. If you expect an example to clarify things, you can also see the example thought record from the instructions again, the one including the downward arrow technique.
+  utter_contact_researchers2:
+  - buttons:
+    - payload: /researcher
+      title: Yeah, I'll get in touch with the researcher.
+    - payload: /starttr
+      title: I think I'm ready for the first thought record.
+    text: If this did not help, it's probably best to contact the main researcher (f.v.burger@tudelft.nl).
+  utter_research_bye:
+  - buttons:
+    - payload: /goodbye
+      title: Bye, Luca!
+    text: Good choice! You can close this window while you wait for the reply (can take up to 24h). You will probably be invited to start again once your questions have been answered. Bye bye for now!
+  utter_ask_start:
+  - buttons:
+    - payload: /starttr
+      title: Let's go!
+    - payload: /unclear
+      title: Hold on! I still have urgent, unanswered questions!
+    text: Let's start with the first thought record! I'll give you a scenario. Try to imagine that the described situation would happen to you and answer the thought record questions accordingly.
+  utter_ask_start2:
+  - buttons:
+    - payload: /starttr
+      title: Yes!
+    text: Let's start with your first personal thought record!
+  utter_ask_start_tr:
+  - buttons:
+    - payload: /starttr
+      title: Let's go!
+    - payload: /restarttr
+      title: I want to see more core belief explanations.
+    text: Ready for your next thought record?
+  utter_ask_start_tr_nocontent:
+  - buttons:
+    - payload: /starttr
+      title: Yes!
+    text: Ready for your next thought record?
+  utter_ask_startnext_nocontent:
+  - buttons:
+    - payload: /starttr
+      title: Let's go!
+    - payload: /endall2
+      title: I do not want to do any additional thought records.
+    text: Shall we start with the next thought record? The more thought records you complete the more likely it is that you will be able to uncover patterns in your responses.
+  utter_ask_startnext:
+  - buttons:
+    - payload: /starttr
+      title: Let's go!
+    - payload: /restarttr
+      title: I want to see more core belief explanations.
+    - payload: /endall2
+      title: I do not want to do any additional thought records.
+    text: Shall we start with the next thought record? The more thought records you complete the more likely it is that you will be able to uncover patterns in your responses.
+  utter_ask_thoughtrecordcore_asituation:
+  - text: Please describe the situation briefly in your own words in one or two sentences (if it helps, try to answer 'what happened when and where and who was involved'?).
+  utter_ask_thoughtrecordcore_bemotion:
+  - text: State the emotion that you would have felt in this situation in one or two words. How did the situation make you feel?
+  utter_ask_thoughtrecordcore_cemointensity:
+  - text: How intensely would you have been experiencing this emotion? Please indicate this with a number on a scale from 0 (a trace) to 100 (as intense as possible).
+  utter_ask_thoughtrecordcore_demotype:
+  - buttons:
+    - payload: happy
+      title: happy/neutral
+    - payload: angry
+      title: angry
+    - payload: sad
+      title: sad
+    - payload: anxious
+      title: afraid
+    text: Which of the following four emotions corresponds best with the emotion that you wrote down above?
+  utter_ask_thoughtrecordcore_eautomaticthought:
+  - text: Which (automatic) thought might have caused you to feel this way in this situation? (automatic thoughts are statements in sentence form, NOT interjections or questions)
+  utter_ask_thoughtrecordcore2_asituation:
+  - text: Please describe the situation briefly in one or two sentences (if it helps, try to answer 'what happened when and where and who was involved'?).
+  utter_ask_thoughtrecordcore2_bemotion:
+  - text: State the emotion that you felt in this situation in one or two words. How did the situation make you feel?
+  utter_ask_thoughtrecordcore2_cemointensity:
+  - text: How intensely were you experiencing this emotion? Please indicate this with a number on a scale from 0 (a trace) to 100 (as intense as possible).
+  utter_ask_thoughtrecordcore2_demotype:
+  - buttons:
+    - payload: angry
+      title: angry
+    - payload: sad
+      title: sad
+    - payload: anxious
+      title: afraid
+    text: Which of the following three emotions corresponds best with the emotion that you wrote down above?
+  utter_ask_thoughtrecordcore2_eautomaticthought:
+  - text: Which (automatic) thought might have caused you to feel this way in this situation? (automatic thoughts are statements in sentence form, NOT interjections or questions)
+  utter_move_to_dat:
+  - buttons:
+    - payload: /downward_arrow
+      title: Sure!
+    text: Alright, let's take your automatic thought and move along the downward arrow.
+  utter_ask_datanxious_anxstep:
+  - text: And what would be the worst that could happen if the thought '{previous_thought}' were true? What would it mean to you? What does it say about you?
+  utter_keepgoing_anx:
+  - buttons:
+    - payload: /keep_going{{"continue":"true"}}
+      title: continue
+    - payload: /keep_going{{"continue":"false"}}
+      title: stop
+    text: Do you think you can answer what the worst that could happen would be if the thought '{previous_thought}' were true?' If so, you can click on 'continue.' Select 'stop' if you feel that your response would be a bit ridiculous or if you feel like you would only be repeating yourself.
+  utter_keepgoing_sadang:
+  - buttons:
+    - payload: /keep_going{{"continue":"true"}}
+      title: continue
+    - payload: /keep_going{{"continue":"false"}}
+      title: stop
+    text: Do you think you can answer why it would be upsetting to you if the thought '{previous_thought}' were true? If so, you can click on 'continue.' Select 'stop' if you feel that your response would be a bit ridiculous or if you feel like you would only be repeating yourself.
+  utter_ask_datsadangry_sadangstep:
+  - text: Why would it be upsetting to you if the thought '{previous_thought}' were true? What would it mean to you? What does it say about you?
+  utter_ask_trbehavior_behavior:
+  - text: Now imagine yourself in the scenario again... what would you have done in the situation? (If you wouldn't have done anything, that's fine too, just state 'nothing.')
+  utter_ask_trbehavior2_behavior:
+  - text: Going back to the situation that you described initially, what did you do when it happened? (If you didn't do anything, that's fine too, just state 'nothing.')
+  utter_submit_tr:
+  - buttons:
+    - payload: /wait
+      title: I'll wait.
+    text: Well done! This concludes the thought record! It may take a little bit of time for me to process everything that you wrote.
+  utter_feedbackready:
+  - buttons:
+    - payload: /seefeedback
+      title: And...?
+    text: I have successfully processed your thought record.
+  utter_schemadef_q:
+  - buttons:
+    - payload: /expl{{"explain":"attachment"}}
+      title: Attachment core belief
+    - payload: /expl{{"explain":"competence"}}
+      title: Competence core belief
+    - payload: /expl{{"explain":"global"}}
+      title: Global self-evaluation core belief
+    - payload: /expl{{"explain":"health"}}
+      title: Health core belief
+    - payload: /expl{{"explain":"power"}}
+      title: Power core belief
+    - payload: /expl{{"explain":"meta"}}
+      title: Meta-cognition core belief
+    - payload: /expl{{"explain":"others"}}
+      title: Other people core belief
+    - payload: /expl{{"explain":"hope"}}
+      title: Hopelessness core belief
+    - payload: /expl{{"explain":"self"}}
+      title: Other people's views about self core belief
+    - payload: /expl{{"explain":"none"}}
+      title: Thanks, I'm good!
+    text: Would you like to know the definition of any of the core beliefs?
+  utter_schemadef_q2:
+  - buttons:
+    - payload: /expl{{"explain":"attachment"}}
+      title: Attachment core belief
+    - payload: /expl{{"explain":"competence"}}
+      title: Competence core belief
+    - payload: /expl{{"explain":"global"}}
+      title: Global self-evaluation core belief
+    - payload: /expl{{"explain":"health"}}
+      title: Health core belief
+    - payload: /expl{{"explain":"power"}}
+      title: Power core belief
+    - payload: /expl{{"explain":"meta"}}
+      title: Meta-cognition core belief
+    - payload: /expl{{"explain":"others"}}
+      title: Other people core belief
+    - payload: /expl{{"explain":"hope"}}
+      title: Hopelessness core belief
+    - payload: /expl{{"explain":"self"}}
+      title: Other people's views about self core belief
+    - payload: /expl{{"explain":"none"}}
+      title: Thanks, I'm good!
+    text: Which other core belief would you like to know more about?
+  utter_all_feedback:
+  - buttons:
+    - payload: /thanks
+      title: Ok, thanks!
+    text: That's all I have in terms of feedback.
+  utter_end_session1:
+  - buttons:
+    - payload: /endall1
+      title: Bye, Luca! See you next session!
+    - payload: /restarttr
+      title: Wait! I want to see more core belief explanations.
+    text: This concludes the first session. In the next session, you get to do thought records with situations from your own life. Please check Prolific regularly to see if you were invited to the next chat session. If all is well, you should receive an invitation after at least 24h and at most 48h have passed. You can click [here](https://app.prolific.co/submissions/complete?cc=5F6BAA4F) to be redirected to Prolific.
+  utter_end_session1_nocontent:
+  - buttons:
+    - payload: /endall0
+      title: Bye, Luca! See you next session!
+    text: This concludes the first session. In the next session, you get to do thought records with situations from your own life. Please check Prolific regularly to see if you were invited to the next chat session. If all is well, you should receive an invitation after at least 24h and at most 48h have passed. You can click [here](https://app.prolific.co/submissions/complete?cc=5F6BAA4F) to be redirected to Prolific.
+  utter_end_tr:
+  - text: Alright, that completes the task! Great job, I hope you gained something from this exercise as well!
+  utter_bye:
+  - buttons:
+    - payload: /goodbye
+      title: Bye bye, Luca!
+    text: Thank you for participating in this study. It was nice to get to know you. Please close this window.
+  utter_end_session2:
+  - buttons:
+    - payload: /endall2
+      title: Alright! Bye bye, Luca!
+    text: Thank you for participating in this study. It was nice to get to know you. Please click on [this link](https://tudelft.fra1.qualtrics.com/jfe/form/SV_02rfV9R524gzD02?PROLIFIC_PID={participantID}) to be forwarded to Qualtrics for the post-questionnaire.
+  utter_iamabot:
+  - text: I am a chatbot, powered by Rasa.
+actions:
+- caction_prepare_feedback
+- caction_give_feedback
+- caction_savethought
+- caction_savetodb
+- caction_setsession
+- caction_togglestartdat
+- caction_choosescenario
+- caction_increaseTRcounter
+- caction_increaseSTEPcounter
+- caction_explainschema
+- caction_showexampletr
+- caction_endtr
+- caction_savesessionend
+forms:
+  thoughtrecordcore:
+    required_slots:
+      asituation:
+      - type: from_text
+      bemotion:
+      - type: from_text
+      cemointensity:
+      - type: from_text
+      demotype:
+      - type: from_text
+      eautomaticthought:
+      - type: from_text
+  thoughtrecordcore2:
+    required_slots:
+      asituation:
+      - type: from_text
+      bemotion:
+      - type: from_text
+      cemointensity:
+      - type: from_text
+      demotype:
+      - type: from_text
+      eautomaticthought:
+      - type: from_text
+  datanxious:
+    required_slots:
+      anxstep:
+      - type: from_text
+  datsadangry:
+    required_slots:
+      sadangstep:
+      - type: from_text
+  trbehavior:
+    required_slots:
+      behavior:
+      - type: from_text
+  trbehavior2:
+    required_slots:
+      behavior:
+      - type: from_text
+e2e_actions: []

@@ -1,0 +1,11 @@
+Scenario	Text	Name	Type
+1	"You arrive home to find your lover/spouse has cleared out his/her belongings.  There's a note on the kitchen table which says, ""We might as well face it, things won't ever work out between us.  Please don't try to talk me out of leaving.  I'm not going to change my mind."""	Lover	IP
+2	For the past six months some members of your family have been planning to visit you.  You asked them to postpone their visit since you felt you were going to be too busy, and have just heard that they are deeply hurt.	Family Visit	IP
+3	You've become quite fond of a co-worker and strike up a friendly conversation with him or her.  You suggest that it might be fun to go out together sometime, but s/he tells you that s/he is too busy these days.	Coworker	IP
+4	You are at a party where you know only the host.  You try to strike up a conversation with someone, but he gives you one-word answers.  Then he turns and walks toward another group of people.	Party	IP
+5	You are walking down the street. On the other side of the street you see an acquaintance whom you've liked the few times you've been in his company. You wave to him, and you get no response.	Waving	IP
+6	You are taking your coffee break when your boss stops by and reminds you of some work that has to get done today.	Coffee Break	AR
+7	You have been working for six months as a car salesperson. You had never been a salesperson before and were just fired because you had not been meeting your quotas.	Fired	AR
+8	You've been sitting at your desk trying to write an essay for two hours and haven't been able to put two sentences together.	Essay	AR
+9	You've been applying for jobs, and you just received a phone call saying the position you applied for has been filled by someone else.  It's the third such call you've received in the last week.	Job Application	AR
+10	You have previously tried a number of diets and have been sticking hard to the latest one for a week.  At the end of the week, you weigh yourself and find out you have gained a pound.	Dieting	AR

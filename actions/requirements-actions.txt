@@ -1,0 +1,12 @@
+keras == 2.4.3
+tensorflow-cpu == 2.3.2
+matplotlib == 3.3.4
+numpy == 1.18.0
+pandas == 1.2.4
+contractions == 0.0.48
+textblob == 0.15.3
+gensim == 4.0.1
+num2words == 0.5.10
+imgurpython == 1.1.7
+python-socketio==5.0.4
+python-engineio==4.0.0

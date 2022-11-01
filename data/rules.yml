@@ -1,0 +1,1623 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye, nofb
+  condition:
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: goodbye
+  - action: caction_savesessionend
+  - action: utter_bye
+
+- rule: Say goodbye anytime the user says goodbye, process
+  condition:
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: goodbye
+  - action: caction_savesessionend
+  - action: utter_bye
+
+- rule: Say goodbye anytime the user says goodbye, content
+  condition:
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: goodbye
+  - action: caction_savesessionend
+  - action: utter_bye
+
+- rule: Repeat final goodbye until user leaves session1_nocontent, nofb
+  condition:
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: endall0
+  - action: utter_end_session1_nocontent
+
+- rule: Repeat final goodbye until user leaves session1_nocontent, process
+  condition:
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: endall0
+  - action: utter_end_session1_nocontent
+
+- rule: Repeat final goodbye until user leaves session1, content
+  condition:
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: endall1
+  - action: utter_end_session1
+
+- rule: Repeat final goodbye until user leaves session1, content
+  condition:
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: endall0
+  - action: utter_end_session1_nocontent
+
+- rule: Repeat final goodbye until user leaves session2, nofb
+  condition:
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: endall2
+  - action: utter_end_session2
+
+- rule: Repeat final goodbye until user leaves session2, process
+  condition:
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: endall2
+  - action: utter_end_session2
+
+- rule: Repeat final goodbye until user leaves session2, content
+  condition:
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: endall2
+  - action: utter_end_session2
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: start thought record session1 condition nofb
+  condition:
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: starttr
+  - action: caction_choosescenario
+  - action: caction_increaseTRcounter
+  - slot_was_set:
+    - tr_counter
+  - action: thoughtrecordcore
+  - active_loop: thoughtrecordcore
+  wait_for_user_input: false
+
+- rule: start thought record session1 condition process
+  condition:
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: starttr
+  - action: caction_choosescenario
+  - action: caction_increaseTRcounter
+  - slot_was_set:
+    - tr_counter
+  - action: thoughtrecordcore
+  - active_loop: thoughtrecordcore
+  wait_for_user_input: false
+
+- rule: start thought record session1 condition content
+  condition:
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: starttr
+  - action: caction_choosescenario
+  - action: caction_increaseTRcounter
+  - slot_was_set:
+    - tr_counter
+  - action: thoughtrecordcore
+  - active_loop: thoughtrecordcore
+  wait_for_user_input: false
+
+- rule: start thought record session2 condition nofb
+  condition:
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: starttr
+  - action: caction_choosescenario
+  - action: caction_increaseTRcounter
+  - slot_was_set:
+    - tr_counter
+  - action: thoughtrecordcore2
+  - active_loop: thoughtrecordcore2
+  wait_for_user_input: false
+
+- rule: start thought record session2 condition process
+  condition:
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: starttr
+  - action: caction_choosescenario
+  - action: caction_increaseTRcounter
+  - slot_was_set:
+    - tr_counter
+  - action: thoughtrecordcore2
+  - active_loop: thoughtrecordcore2
+  wait_for_user_input: false
+
+- rule: start thought record session2 condition content
+  condition:
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: starttr
+  - action: caction_choosescenario
+  - action: caction_increaseTRcounter
+  - slot_was_set:
+    - tr_counter
+  - action: thoughtrecordcore2
+  - active_loop: thoughtrecordcore2
+  wait_for_user_input: false
+
+- rule: move towards dat from first thought record session1, emotype happy, nofb
+  condition:
+  - slot_was_set:
+    - condition: nofb
+  - active_loop: thoughtrecordcore
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: happy
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: happy
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: move towards dat from first thought record session2, emotype happy, nofb
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: happy
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: happy
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: move towards dat from first thought record session1, emotype sad, nofb
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: sad
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype sad, nofb
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: sad
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session1, emotype angry, nofb
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: angry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype angry, nofb
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: angry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session1, emotype anxious, nofb
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: anxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype anxious, nofb
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: anxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+
+- rule: move towards dat from first thought record session1, emotype happy, process
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: happy
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: happy
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: move towards dat from first thought record session2, emotype happy, process
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: happy
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: happy
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: move towards dat from first thought record session1, emotype sad, process
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: sad
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype sad, process
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: sad
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session1, emotype angry, process
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: angry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype angry, process
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: angry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session1, emotype anxious, process
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: anxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype anxious, process
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: anxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session1, emotype happy, content
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: happy
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: happy
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: move towards dat from first thought record session2, emotype happy, content
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: happy
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: happy
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: move towards dat from first thought record session1, emotype sad, content
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: sad
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype sad, content
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: sad
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session1, emotype angry, content
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: angry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype angry, content
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: angry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session1, emotype anxious, content
+  condition:
+  - active_loop: thoughtrecordcore
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore
+  - slot_was_set:
+    - demotype: anxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: move towards dat from first thought record session2, emotype anxious, content
+  condition:
+  - active_loop: thoughtrecordcore2
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: thoughtrecordcore2
+  - slot_was_set:
+    - demotype: anxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: true
+  - action: utter_move_to_dat
+
+- rule: start dat sadang, nofb
+  condition:
+  - slot_was_set:
+    - start_dat: true
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: downward_arrow
+  - action: datsadangry
+  - active_loop: datsadangry
+  - slot_was_set:
+    - requested_slot: sadangstep
+  - slot_was_set:
+    - sadangstep
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_sadang
+
+- rule: restart sadangry dat, nofb
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: true
+  - action: datsadangry
+  - active_loop: datsadangry
+
+- rule: submit sadangry dat step, no fb
+  condition:
+  - active_loop: datsadangry
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: datsadangry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_sadang
+
+- rule: dat sadangry end session1, nofb
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: dat sadangry end session2, nofb
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior2
+  - active_loop: trbehavior2
+
+- rule: start dat sadang, process
+  condition:
+  - slot_was_set:
+    - start_dat: true
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: downward_arrow
+  - action: datsadangry
+  - active_loop: datsadangry
+  - slot_was_set:
+    - requested_slot: sadangstep
+  - slot_was_set:
+    - sadangstep
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_sadang
+
+- rule: restart sadangry dat, process
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: true
+  - action: datsadangry
+  - active_loop: datsadangry
+
+- rule: submit sadangry dat step, process
+  condition:
+  - active_loop: datsadangry
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: datsadangry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_sadang
+
+- rule: dat sadangry end session1, process
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: dat sadangry end session2, process
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior2
+  - active_loop: trbehavior2
+
+- rule: start dat sadang, content
+  condition:
+  - slot_was_set:
+    - start_dat: true
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: downward_arrow
+  - action: datsadangry
+  - active_loop: datsadangry
+  - slot_was_set:
+    - requested_slot: sadangstep
+  - slot_was_set:
+    - sadangstep
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_sadang
+
+- rule: restart sadangry dat, content
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: true
+  - action: datsadangry
+  - active_loop: datsadangry
+
+- rule: submit sadangry dat step, content
+  condition:
+  - active_loop: datsadangry
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: datsadangry
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_sadang
+
+- rule: dat sadangry end session1, content
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior
+  - active_loop: trbehavior
+
+- rule: dat sadangry end session2, content
+  condition:
+  - slot_was_set:
+    - emotype_internal: sadang
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior2
+  - active_loop: trbehavior2
+
+- rule: start dat anxious, nofb
+  condition:
+  - slot_was_set:
+    - start_dat: true
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: downward_arrow
+  - action: datanxious
+  - active_loop: datanxious
+  - slot_was_set:
+    - requested_slot: anxstep
+  - slot_was_set:
+    - anxstep
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_anx
+
+- rule: restart anxious dat, nofb
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: true
+  - action: datanxious
+  - active_loop: datanxious
+
+- rule: submit anxious dat step, nofb
+  condition:
+  - active_loop: datanxious
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: datanxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_anx
+
+- rule: dat anxious end session1, nofb
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior
+  - active_loop: trbehavior
+  wait_for_user_input: false
+
+- rule: dat anxious end session2, nofb
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior2
+  - active_loop: trbehavior2
+  wait_for_user_input: false
+
+- rule: start dat anxious, process
+  condition:
+  - slot_was_set:
+    - start_dat: true
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: downward_arrow
+  - action: datanxious
+  - active_loop: datanxious
+  - slot_was_set:
+    - requested_slot: anxstep
+  - slot_was_set:
+    - anxstep
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_anx
+
+- rule: restart anxious dat, process
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: true
+  - action: datanxious
+  - active_loop: datanxious
+
+- rule: submit anxious dat step, process
+  condition:
+  - active_loop: datanxious
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: datanxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_anx
+
+- rule: dat anxious end session1, process
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior
+  - active_loop: trbehavior
+  wait_for_user_input: false
+
+- rule: dat anxious end session2, process
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior2
+  - active_loop: trbehavior2
+  wait_for_user_input: false
+
+- rule: start dat anxious, content
+  condition:
+  - slot_was_set:
+    - start_dat: true
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: downward_arrow
+  - action: datanxious
+  - active_loop: datanxious
+  - slot_was_set:
+    - requested_slot: anxstep
+  - slot_was_set:
+    - anxstep
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_anx
+
+- rule: restart anxious dat, content
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: true
+  - action: datanxious
+  - active_loop: datanxious
+
+- rule: submit anxious dat step, content
+  condition:
+  - active_loop: datanxious,
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: datanxious
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: caction_savethought
+  - slot_was_set:
+    - previous_thought
+  - slot_was_set:
+    - eautomaticthought: null
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - anxstep: null
+  - slot_was_set:
+    - sadangstep: null
+  - slot_was_set:
+    - start_dat: false
+  - action: caction_increaseSTEPcounter
+  - slot_was_set:
+    - step_counter
+  - action: utter_keepgoing_anx
+
+- rule: dat anxious end session1, content
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior
+  - active_loop: trbehavior
+  wait_for_user_input: false
+
+- rule: dat anxious end session2, content
+  condition:
+  - slot_was_set:
+    - emotype_internal: anxious
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: keep_going
+  - slot_was_set:
+    - continue: false
+  - action: trbehavior2
+  - active_loop: trbehavior2
+  wait_for_user_input: false
+
+- rule: submit thought record session1, nofb
+  condition:
+  - active_loop: trbehavior
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: trbehavior
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit_tr
+  
+- rule: submit thought record session2, nofb
+  condition:
+  - active_loop: trbehavior2
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - action: trbehavior2
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit_tr
+
+- rule: submit thought record session1, process
+  condition:
+  - active_loop: trbehavior
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: trbehavior
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit_tr
+  
+- rule: submit thought record session2, process
+  condition:
+  - active_loop: trbehavior2
+  - slot_was_set:
+    - condition: process
+  steps:
+  - action: trbehavior2
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit_tr
+
+- rule: submit thought record session1, content
+  condition:
+  - active_loop: trbehavior
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: trbehavior
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit_tr
+  
+- rule: submit thought record session2, content
+  condition:
+  - active_loop: trbehavior2
+  - slot_was_set:
+    - condition: content
+  steps:
+  - action: trbehavior2
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit_tr
+
+- rule: end thought record no content feedback or happy emotype and not session transition, session1, nofb
+  condition:
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - condition: nofb
+  - slot_was_set:
+    - end_tr: ncontentfbOhappynotransition
+  steps:
+  - intent: thanks
+  - action: utter_ask_start_tr_nocontent
+
+- rule: end thought record no content feedback or happy emotype and not session transition, session2, nofb
+  condition: 
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - end_tr: ncontentfbOhappynotransition
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: thanks
+  - action: caction_savesessionend
+  - action: utter_ask_startnext_nocontent
+
+- rule: end thought record no content feedback or happy emotype and session transition, nofb
+  condition: 
+  - slot_was_set:
+    - end_tr: ncontentfbOhappytransition
+  - slot_was_set:
+    - condition: nofb
+  steps:
+  - intent: thanks
+  - action: caction_savesessionend
+  - action: utter_end_session1_nocontent
+
+- rule: end thought record no content feedback or happy emotype and not session transition, session1, process
+  condition:
+  - slot_was_set:
+    - session1: true
+  - slot_was_set:
+    - end_tr: ncontentfbOhappynotransition
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: thanks
+  - action: utter_ask_start_tr_nocontent
+
+- rule: end thought record no content feedback or happy emotype and not session transition, session2, process
+  condition: 
+  - slot_was_set:
+    - session1: false
+  - slot_was_set:
+    - end_tr: ncontentfbOhappynotransition
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: thanks
+  - action: caction_savesessionend
+  - action: utter_ask_startnext_nocontent
+
+- rule: end thought record no content feedback or happy emotype and session transition, process
+  condition: 
+  - slot_was_set:
+    - end_tr: ncontentfbOhappytransition
+  - slot_was_set:
+    - condition: process
+  steps:
+  - intent: thanks
+  - action: caction_savesessionend
+  - action: utter_end_session1_nocontent
+
+- rule: end thought record no content feedback or happy emotype and not session transition, content
+  condition:
+  - slot_was_set:
+    - end_tr: ncontentfbOhappynotransition
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: thanks
+  - action: utter_ask_start_tr_nocontent
+
+- rule: end thought record no content feedback or happy emotype and session transition, content
+  condition: 
+  - slot_was_set:
+    - end_tr: ncontentfbOhappytransition
+  - slot_was_set:
+    - condition: content
+  steps:
+  - intent: thanks
+  - action: caction_savesessionend
+  - action: utter_end_session1_nocontent
+
+- rule: end thought record content feedback
+  condition:
+  - slot_was_set:
+    - condition: content 
+  - slot_was_set:
+    - end_tr: contentfb
+  steps:
+  - intent: thanks
+  - action: utter_schemadef_q

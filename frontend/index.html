@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Luca</title>
+    <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: white;
+            }
+            #webchat {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: white;
+            }
+
+            /* Background color of sent client message */
+            .rw-conversation-container .rw-messages-container .rw-message .rw-client{
+                   background-color: #97B9B5 !important; 
+            }
+
+            /* Background color buttons when presented by agent */
+            .rw-conversation-container .rw-messages-container .rw-replies .rw-reply{
+                   background-color: #B7C098 !important; 
+            }
+
+            /* Background color of bot message */
+            .rw-conversation-container .rw-messages-container .rw-message .rw-response{
+                   background-color: #E7BB2C !important; 
+            }
+
+            /* Backround color of button
+            .rw-conversation-container .rw-messages-container .rw-replies .rw-response{
+                   background-color: #C5E1E4 !important; 
+            } */
+
+            .rw.conversation-container .rw.replies {
+                   display:block
+            }
+
+    </style>
+</head>
+<body>
+
+<p> Keep calm and wait for the chatbot to start ;-). It may take a bit of time to load. If you still don't see anything after a minute of waiting, try scrolling down.</p>
+
+<div id="webchat"></div>
+<script>
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const userid = urlParams.get('userid');
+      console.log(userid);
+      const modbucket = urlParams.get('modbucket');
+      console.log(modbucket);
+
+    !(function () {
+  let e = document.createElement("script"),
+    t = document.head || document.getElementsByTagName("head")[0];
+  (e.src =
+    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+    // Replace 1.x.x with the version that you want
+    (e.async = !0),
+    (e.onload = () => {
+      window.WebChat.default(
+        {
+          customData: { language: "en" },
+          socketUrl: "http://34.90.222.126",
+          socketPath: "/socket.io/",
+          selector: "#webchat",
+          initPayload: "/greet",
+          customData: {"language":"en", "userid": userid, "modbucket": modbucket}, // arbitrary custom data. Stay minimal as this will be added to the socket
+          //profileAvatar: "https://i.imgur.com/eS7aZJe.jpg"
+          //fullScreenMode: true,
+          embedded: true,
+          title: "Luca",
+          subtitle: "A chatbot for thought recording",
+          params: {"images": {"dims": {"width": 600}}, "storage": "session"}, // can be set to "local"  or "session". details in storage section.
+          customMessageDelay: (message) => { // Make sure to add comma above when uncommenting this
+            let delay = message.length * 45;
+            if (delay > 5 * 1000) delay = 5 * 1000;
+            if (delay < 800) delay = 800;
+            return delay;
+            }
+          // add other props here
+        },
+        null
+      );
+    }),
+    t.insertBefore(e, t.firstChild);
+})();
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var hideSender = function() {
+        if( $('.rw-replies').length || $('#wave').length || $('.rw-message').length == 0){
+            $("textarea").prop('disabled', true);
+            $("textarea").prop('placeholder', "Use one of the buttons to answer.");
+        }
+    
+        else {
+           $("textarea").prop('disabled', false);
+           $("textarea").prop('placeholder', "Type a message...");
+        }
+    }
+    setInterval(hideSender, 250);
+</script>
+</body>
+</html>
